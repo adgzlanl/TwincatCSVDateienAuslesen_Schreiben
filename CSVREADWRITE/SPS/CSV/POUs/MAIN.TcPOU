@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <POU Name="MAIN" Id="{71efec07-8bcc-4d24-9166-4d696e057211}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	(*	In USA/UK the CSV field separator is a comma.
+	In Germany and some other European countries the CSV field separator is a semicolon. *)
+	bChangeSeparatorToComma	: BOOL := FALSE;
+	Read_CSV				: F_CSV_Mode_Read;
+	Write_CSV				: F_CSV_Mode_Write;
+	bWrite					: BOOL;
+	bRead					: BOOL;
+	WarmRead				: R_TRIG;
+	WarmWrite				: R_TRIG;
+	
+END_VAR
+
+    ]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bChangeSeparatorToComma THEN
+	DEFAULT_CSV_FIELD_SEP := 16#2C;(* Comma ASCII code *)
+ELSE
+	DEFAULT_CSV_FIELD_SEP := 16#3B;(* Semicolon ASCII code *)
+END_IF
+//P_Text_Mode_Read();
+//P_Text_Mode_Write();
+
+WarmRead(CLK:=bRead);
+Read_CSV(bRead:=WarmRead.Q , bBusy=> , bError=> , nErrId=> );
+WarmWrite(CLK:=bWrite);
+Write_CSV(bWrite:=WarmWrite.Q,bBusy=> , bError=> , nErrId=> );
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="7" Count="3" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="43" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

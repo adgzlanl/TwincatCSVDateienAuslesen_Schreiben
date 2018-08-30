@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
+  <GVL Name="CSV" Id="{c1d2778c-8c1d-4250-b8a4-de72d7413fee}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	MAX_CSV_ROWS 			: UDINT := 100;
+	MAX_CSV_COLUMNS 		: UDINT := 5;
+	MAX_CSV_FIELD_LENGTH	: UDINT := 100;
+END_VAR
+
+VAR_GLOBAL PERSISTENT
+	Database_STRING				: ARRAY[0..MAX_CSV_ROWS, 0..MAX_CSV_COLUMNS ] OF STRING(MAX_CSV_FIELD_LENGTH);
+	Database_DINT				: ARRAY[0..MAX_CSV_ROWS, 0..MAX_CSV_COLUMNS ] OF DINT;
+END_VAR
+
+VAR_GLOBAL
+	
+	
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
